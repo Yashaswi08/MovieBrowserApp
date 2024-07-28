@@ -13,11 +13,17 @@ import {FlashList} from '@shopify/flash-list';
 import {HomeTabContext, IMAGE_URL} from '../shared/constants';
 import {useAppDispatch, useAppSelector} from '../shared/hooks';
 import {updatePageNumber} from '../shared/redxSlice';
+import {ActivityIndicator} from 'react-native-paper';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
 const HomeTab = React.memo((props: any) => {
   const [movieList, setMovieList] = React.useState([]);
   const [nowPlayingmovieList, setNowPlayingmovieList] = React.useState([]);
   const [currentType, setCurrentType] = React.useState({});
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const theme = useAppTheme('', '');
   const dispatch = useAppDispatch();
@@ -26,6 +32,7 @@ const HomeTab = React.memo((props: any) => {
 
   const get_movies = React.useCallback(
     async (page?: number) => {
+      setLoading(true);
       console.log('current page reg in home:', currentMoviePage);
       const req_page = page ?? currentMoviePage;
       const request = await fetch_movies(req_page);
@@ -42,13 +49,15 @@ const HomeTab = React.memo((props: any) => {
         setMovieList(all_movies);
       }
       dispatch(updatePageNumber(request.page));
+      setLoading(false);
     },
     [currentMoviePage, movieList],
   );
 
   const get_now_playings = React.useCallback(
     async (props: any, page?: number) => {
-      console.log('current page reg in home:', props, page);
+      setLoading(true);
+      // console.log('current page reg in home:', props, page);
       // const req_page = page ?? currentMoviePage;
       const request = await now_playing(props?.key, page);
       setCurrentType(props);
@@ -63,9 +72,10 @@ const HomeTab = React.memo((props: any) => {
       } else {
         const all_movies = [...nowPlayingmovieList, ...request.results] as any;
         setNowPlayingmovieList(all_movies);
-        console.log('Running--------->>>>>');
+        // console.log('Running--------->>>>>');
       }
       dispatch(updatePageNumber(request.page));
+      setLoading(false);
     },
     [currentMoviePage, nowPlayingmovieList],
   );
@@ -77,7 +87,7 @@ const HomeTab = React.memo((props: any) => {
 
   const handleLoadMoreMovies = React.useCallback(() => {
     const item = currentType;
-    console.log('item--->>>', currentType);
+    // console.log('item--->>>', currentType);
     get_now_playings(item, currentMoviePage + 1);
   }, [currentMoviePage, searchValue, currentType]);
 
@@ -92,6 +102,34 @@ const HomeTab = React.memo((props: any) => {
   return (
     <HomeTabContext.Provider value={{}}>
       <View style={{flex: 1, backgroundColor: theme.appBackground}}>
+        {loading ? (
+          <View
+            style={{
+              position: 'absolute',
+              width: widthPercentageToDP('70%'),
+              paddingVertical: widthPercentageToDP('5%'),
+              marginTop: heightPercentageToDP('30%'),
+              zIndex: 3,
+              // marginBottom: 'auto',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: theme.cardBackground,
+              alignSelf: 'center',
+              borderRadius: 10,
+            }}>
+            <ActivityIndicator size={50} />
+            <Text
+              style={{
+                color: theme.inverseBlack,
+                paddingHorizontal: widthPercentageToDP('1%'),
+              }}>
+              Loading...
+            </Text>
+          </View>
+        ) : (
+          <></>
+        )}
         <SearchBox editable={true} onPress={handleRouteToSearchPage} />
         <View style={{minHeight: 2, marginHorizontal: 15}}>
           <FlatList
@@ -129,20 +167,24 @@ const HomeTab = React.memo((props: any) => {
           data={nowPlayingmovieList}
           // horizontal={true}
           numColumns={2}
-          renderItem={({item}: {item: any}) => (
-            <SmallCardUI
-              image={IMAGE_URL + item.backdrop_path}
-              movie_id={item.id}
-              title={item.title}
-              release_date={item?.release_date}
-              desc={
-                item.overview.length <= 130
-                  ? item.overview.slice(0, 130)
-                  : item.overview.slice(0, 130) + '...'
-              }
-              handleRouteToDetailsPage={handleRouteToDetailsPage}
-            />
-          )}
+          renderItem={({item}: {item: any}) => {
+            // console.log('Myitem---->', item);
+            return (
+              <SmallCardUI
+                image={IMAGE_URL + item.backdrop_path}
+                movie_id={item.id}
+                title={item.title}
+                release_date={item?.release_date}
+                vote_average={item?.vote_average}
+                desc={
+                  item.overview.length <= 130
+                    ? item.overview.slice(0, 130)
+                    : item.overview.slice(0, 130) + '...'
+                }
+                handleRouteToDetailsPage={handleRouteToDetailsPage}
+              />
+            );
+          }}
           onEndReached={handleLoadMoreMovies}
           onEndReachedThreshold={0}
           // @ts-ignore

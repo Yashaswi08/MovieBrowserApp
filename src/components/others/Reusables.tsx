@@ -15,13 +15,52 @@ export const CardUI = React.memo((props: any) => {
   const theme = useAppTheme();
   return (
     <Card
-      style={{marginBottom: 10, marginTop: 10}}
+      style={{marginBottom: 10, marginTop: 10, elevation: 3}}
       onPress={() => props.handleRouteToDetailsPage(props.movie_id)}>
-      <Card.Cover source={{uri: props.image}} />
+      <Card.Cover
+        source={{uri: props.image}}
+        style={{borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}
+      />
       <Card.Content style={{backgroundColor: theme.appBackground}}>
         <Text variant="titleLarge" style={{color: theme.inverseBlack}}>
           {props.title}
         </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 2,
+            justifyContent: 'center',
+          }}>
+          <RatingIcon />
+          <Text
+            style={{
+              color: theme.inverseBlack,
+              paddingHorizontal: 3,
+              // marginLeft: 'auto',
+              // marginRight: 'auto',
+            }}>
+            {Math.round(props?.vote_average * 10) / 10}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 2,
+            justifyContent: 'center',
+          }}>
+          <CalenderIcon />
+          <Text
+            style={{
+              color: theme.inverseBlack,
+              paddingHorizontal: 3,
+              // marginLeft: 'auto',
+              // marginRight: 'auto',
+            }}>
+            {moment(props.release_date).format('LL')}
+          </Text>
+        </View>
         {/* <Text variant="bodyMedium" style={{color: theme.gray}}>
           {props.desc}
         </Text> */}
@@ -60,9 +99,12 @@ export const SearchBox = React.memo((props: any) => {
         placeholder="Search movies..."
         placeholderTextColor={theme.gray}
         value={searchValue}
-        editable={props.editable == undefined}
+        editable={props.editable}
         onPressIn={() => props.onPress?.()}
-        onChangeText={text => dispatch(updateSearchValue(text))}
+        onChangeText={text => {
+          dispatch(updateSearchValue(text));
+          props.onSubmitEditing();
+        }}
         style={{
           color: theme.gray,
         }}
@@ -108,7 +150,7 @@ export const CategoryBox = React.memo((props: any) => {
   ];
 
   return (
-    <View style={{alignItems: 'center', marginVertical: 10}}>
+    <View style={{alignItems: 'center', marginVertical: 10, elevation: 3}}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -150,7 +192,9 @@ export const CategoryBox = React.memo((props: any) => {
 export const SmallCardUI = React.memo((props: any) => {
   const theme = useAppTheme();
   return (
-    <View style={{marginHorizontal: 10, flex: 1, marginVertical: 10}}>
+    <TouchableOpacity
+      onPress={() => props.handleRouteToDetailsPage(props.movie_id)}
+      style={{marginHorizontal: 10, flex: 1, marginVertical: 10, elevation: 3}}>
       <Image
         height={200}
         // width={200}
@@ -159,7 +203,7 @@ export const SmallCardUI = React.memo((props: any) => {
       />
       <View
         style={{
-          backgroundColor: '#3A3F47',
+          backgroundColor: theme.cardBackground,
           borderBottomLeftRadius: 10,
           borderBottomRightRadius: 10,
         }}>
@@ -180,6 +224,24 @@ export const SmallCardUI = React.memo((props: any) => {
             paddingVertical: 2,
             justifyContent: 'center',
           }}>
+          <RatingIcon />
+          <Text
+            style={{
+              color: theme.inverseBlack,
+              paddingHorizontal: 3,
+              // marginLeft: 'auto',
+              // marginRight: 'auto',
+            }}>
+            {Math.round(props?.vote_average * 10) / 10}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 2,
+            justifyContent: 'center',
+          }}>
           <CalenderIcon />
           <Text
             style={{
@@ -192,14 +254,16 @@ export const SmallCardUI = React.memo((props: any) => {
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 });
 
 export const CarouselCardUI = React.memo((props: any) => {
   const theme = useAppTheme();
   return (
-    <View style={{marginHorizontal: 10, minWidth: '5%'}}>
+    <TouchableOpacity
+      onPress={() => props.handleRouteToDetailsPage(props.movie_id)}
+      style={{marginHorizontal: 10, minWidth: '5%', elevation: 3}}>
       <Image
         height={200}
         source={{uri: props.image}}
@@ -208,13 +272,13 @@ export const CarouselCardUI = React.memo((props: any) => {
       <Text
         style={{
           color: theme.inverseBlack,
-          marginTop: -30,
+          // marginTop: -30,
           padding: 10,
           marginLeft: 'auto',
           marginRight: 'auto',
         }}>
         {props.title}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 });

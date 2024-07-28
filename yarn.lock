@@ -3206,6 +3206,7 @@ __metadata:
     react-native: 0.74.3
     react-native-elements: ^3.4.3
     react-native-paper: ^5.12.3
+    react-native-responsive-screen: ^1.4.2
     react-native-safe-area-context: ^4.10.8
     react-native-screens: ^3.32.0
     react-native-svg: ^15.4.0
@@ -8496,6 +8497,15 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: e420dab914a4941722482719e46f8837b51927a11d9861e2f581bac651910ea08419e9a1a2dd4aa072520439c119d6894f0d8d763db3dcc28a15b73072b9eb76
+  languageName: node
+  linkType: hard
+
+"react-native-responsive-screen@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "react-native-responsive-screen@npm:1.4.2"
+  peerDependencies:
+    react-native: ">=0.35"
+  checksum: f854d42e2fdfde80f31b9d3eab3bc9665cf312e5b3953b4a14dc36dc27b2dbe03b8520880ea267376eea7b664af7eb900ae88ef4004a65820b48ad9ac2fc5feb
   languageName: node
   linkType: hard
 
