@@ -3,6 +3,8 @@
 React Native application that allows users to browse movies from TMDB using the provided APIs.
 Segmented control to switch between the different movie lists (Now Playing, Popular, Top Rated, Upcoming) of your choice.
 
+![plot](./src/assets/icons/Screenshot%202024-07-29%20at%2010.08.06 AM.png)
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
