@@ -37,8 +37,6 @@ export const CardUI = React.memo((props: any) => {
             style={{
               color: theme.inverseBlack,
               paddingHorizontal: 3,
-              // marginLeft: 'auto',
-              // marginRight: 'auto',
             }}>
             {Math.round(props?.vote_average * 10) / 10}
           </Text>
@@ -55,8 +53,6 @@ export const CardUI = React.memo((props: any) => {
             style={{
               color: theme.inverseBlack,
               paddingHorizontal: 3,
-              // marginLeft: 'auto',
-              // marginRight: 'auto',
             }}>
             {moment(props.release_date).format('LL')}
           </Text>
@@ -115,7 +111,6 @@ export const SearchBox = React.memo((props: any) => {
 });
 
 export const CategoryBox = React.memo((props: any) => {
-  // const [value, setValue] = React.useState<string>('Now Playing');
   const [value, setValue] = React.useState<any>({
     key: 'now_playing',
     value: 'Now Playing',
@@ -177,7 +172,6 @@ export const CategoryBox = React.memo((props: any) => {
               style={{
                 color: theme.inverseBlack,
                 fontSize: 14,
-                // fontWeight: 'bold',
                 elevation: 3,
               }}>
               {item?.value}
@@ -197,7 +191,6 @@ export const SmallCardUI = React.memo((props: any) => {
       style={{marginHorizontal: 10, flex: 1, marginVertical: 10, elevation: 3}}>
       <Image
         height={200}
-        // width={200}
         source={{uri: props.image}}
         style={{borderTopLeftRadius: 10, borderTopRightRadius: 10}}
       />
@@ -210,7 +203,6 @@ export const SmallCardUI = React.memo((props: any) => {
         <Text
           style={{
             color: theme.inverseBlack,
-            // marginTop: -30,
             paddingHorizontal: 10,
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -229,8 +221,6 @@ export const SmallCardUI = React.memo((props: any) => {
             style={{
               color: theme.inverseBlack,
               paddingHorizontal: 3,
-              // marginLeft: 'auto',
-              // marginRight: 'auto',
             }}>
             {Math.round(props?.vote_average * 10) / 10}
           </Text>
@@ -247,8 +237,6 @@ export const SmallCardUI = React.memo((props: any) => {
             style={{
               color: theme.inverseBlack,
               paddingHorizontal: 3,
-              // marginLeft: 'auto',
-              // marginRight: 'auto',
             }}>
             {moment(props.release_date).format('LL')}
           </Text>
@@ -272,7 +260,6 @@ export const CarouselCardUI = React.memo((props: any) => {
       <Text
         style={{
           color: theme.inverseBlack,
-          // marginTop: -30,
           padding: 10,
           marginLeft: 'auto',
           marginRight: 'auto',

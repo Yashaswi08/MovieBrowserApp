@@ -1,82 +1,17 @@
 import React from 'react';
 import {Alert, View, Image, ActivityIndicator, Linking} from 'react-native';
-import {useAppTheme} from './shared/appTheme';
-import {movie_detail} from './shared/functions';
+import {useAppTheme} from '../components/shared/appTheme';
+import {movie_detail} from '../components/shared/functions';
 import {FlashList} from '@shopify/flash-list';
 import {Text} from 'react-native-paper';
-import {IMAGE_URL} from './shared/constants';
-import {TProductionCompanies} from './shared/types';
+import {IMAGE_URL} from '../components/shared/constants';
+import {TProductionCompanies} from '../components/shared/types';
 import {Link} from 'iconsax-react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import RatingIcon from '../assets/icons/ratingIcon';
-
-// {
-//     "adult": false,
-//     "backdrop_path": "/pfAZP7JvTTxqgq7n6A1OYgkAdEW.jpg",
-//     "belongs_to_collection": null,
-//     "budget": 0,
-//     "genres": [
-//         {
-//             "id": 28,
-//             "name": "Action"
-//         },
-//         {
-//             "id": 14,
-//             "name": "Fantasy"
-//         },
-//         {
-//             "id": 27,
-//             "name": "Horror"
-//         }
-//     ],
-//     "homepage": "https://www.disneyplus.com/movies/werewolf-by-night/J1sCDfT3MaDl",
-//     "id": 894205,
-//     "imdb_id": "tt15318872",
-//     "original_language": "en",
-//     "original_title": "Werewolf by Night",
-//     "overview": "On a dark and somber night, a secret cabal of monster hunters emerge from the shadows and gather at the foreboding Bloodstone Temple following the death of their leader. In a strange and macabre memorial to the leader’s life, the attendees are thrust into a mysterious and deadly competition for a powerful relic—a hunt that will ultimately bring them face to face with a dangerous monster.",
-//     "popularity": 36.534,
-//     "poster_path": "/jmv7EbqBuEk4V1U7OoSBaxkwawO.jpg",
-//     "production_companies": [
-//         {
-//             "id": 420,
-//             "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-//             "name": "Marvel Studios",
-//             "origin_country": "US"
-//         },
-//         {
-//             "id": 176762,
-//             "logo_path": null,
-//             "name": "Kevin Feige Productions",
-//             "origin_country": "US"
-//         }
-//     ],
-//     "production_countries": [
-//         {
-//             "iso_3166_1": "US",
-//             "name": "United States of America"
-//         }
-//     ],
-//     "release_date": "2022-09-25",
-//     "revenue": 0,
-//     "runtime": 55,
-//     "spoken_languages": [
-//         {
-//             "english_name": "English",
-//             "iso_639_1": "en",
-//             "name": "English"
-//         }
-//     ],
-//     "status": "Released",
-//     "tagline": "There's no escaping the night.",
-//     "title": "Werewolf by Night",
-//     "video": false,
-//     "vote_average": 7.0,
-//     "vote_count": 1053
-// }
 
 const MovieDetails = React.memo((props: any) => {
   const theme = useAppTheme();
@@ -109,12 +44,6 @@ const MovieDetails = React.memo((props: any) => {
     });
   }, []);
 
-  //         {
-  //             "english_name": "English",
-  //             "iso_639_1": "en",
-  //             "name": "English"
-  //         }
-
   const MakeSpokenLanguages = React.memo(() => {
     return (
       <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -137,10 +66,6 @@ const MovieDetails = React.memo((props: any) => {
       </View>
     );
   });
-  //         {
-  //             "iso_3166_1": "US",
-  //             "name": "United States of America"
-  //         }
 
   const MakeProductionCountries = React.memo(() => {
     return (
@@ -175,13 +100,6 @@ const MovieDetails = React.memo((props: any) => {
       </View>
     );
   });
-
-  //     {
-  //     "id": 420,
-  //     "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-  //     "name": "Marvel Studios",
-  //     "origin_country": "US"
-  // },
 
   const MakeProductionCompanies = React.memo(() => {
     return (

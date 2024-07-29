@@ -33,7 +33,6 @@ const HomeTab = React.memo((props: any) => {
   const get_movies = React.useCallback(
     async (page?: number) => {
       setLoading(true);
-      console.log('current page reg in home:', currentMoviePage);
       const req_page = page ?? currentMoviePage;
       const request = await fetch_movies(req_page);
       if (request == undefined)
@@ -57,8 +56,6 @@ const HomeTab = React.memo((props: any) => {
   const get_now_playings = React.useCallback(
     async (props: any, page?: number) => {
       setLoading(true);
-      // console.log('current page reg in home:', props, page);
-      // const req_page = page ?? currentMoviePage;
       const request = await now_playing(props?.key, page);
       setCurrentType(props);
       if (request == undefined)
@@ -72,7 +69,6 @@ const HomeTab = React.memo((props: any) => {
       } else {
         const all_movies = [...nowPlayingmovieList, ...request.results] as any;
         setNowPlayingmovieList(all_movies);
-        // console.log('Running--------->>>>>');
       }
       dispatch(updatePageNumber(request.page));
       setLoading(false);
@@ -150,7 +146,6 @@ const HomeTab = React.memo((props: any) => {
                 handleRouteToDetailsPage={handleRouteToDetailsPage}
               />
             )}
-            // onEndReached={handleLoadMoreMovies}
             onEndReachedThreshold={0}
             // @ts-ignore
             keyExtractor={item => item.id}
@@ -165,10 +160,8 @@ const HomeTab = React.memo((props: any) => {
         </View>
         <FlatList
           data={nowPlayingmovieList}
-          // horizontal={true}
           numColumns={2}
           renderItem={({item}: {item: any}) => {
-            // console.log('Myitem---->', item);
             return (
               <SmallCardUI
                 image={IMAGE_URL + item.backdrop_path}
@@ -190,7 +183,6 @@ const HomeTab = React.memo((props: any) => {
           // @ts-ignore
           keyExtractor={item => item.id}
           contentContainerStyle={{
-            // paddingEnd: '200%',
             paddingHorizontal: 20,
             paddingVertical: 0,
           }}

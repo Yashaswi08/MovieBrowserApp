@@ -1,7 +1,6 @@
 import {
   DETAILS_ENDPOINT,
   LATEST_MOVIES_ENDPOINT,
-  NOW_PLAYING_ENDPOINT,
   SEARCH_MOVIES_ENDPOINT,
   axios_instance,
 } from './constants';
